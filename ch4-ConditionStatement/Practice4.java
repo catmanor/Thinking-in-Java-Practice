@@ -84,14 +84,44 @@ public class Practice4 {
     }
 
     public static void p10() {
+        int a[] = new int[4];
+        int b[] = new int[4];
         System.out.println("Vampire numbers: ");
         for (int i=1000; i<10000; i+=2) {
-            for (int j=10; j<100; j+=2) {
-                if (i%j == 0 && i/j>10 && i/j<100 && i%100 != 0) {
-                    System.out.print(i + ", ");
-                    break;
+            if (i%100 != 0) {
+                int temp1 = i;
+                for (int k=0; k<4; k++) {
+                    a[k] = temp1%10;
+                    temp1 /= 10;
+                }
+                //System.out.println(a[0]+" "+a[1]+ " " + a[2]+" "+a[3]);
+                for (int j=10; j<100; j+=2) {
+                    if (i%j == 0) {
+                        int temp2 = j;
+                        for (int k=0; k<2; k++) {
+                            b[k] = temp2%10;
+                            temp2 /= 10;
+                        }
+                        int temp3 = i/j;
+                        for (int k=2; k<4; k++) {
+                            b[k] = temp3%10;
+                            temp3 /= 10;
+                        }
+                    }
+                    //System.out.println(b[0]+" "+b[1]+ " " + b[2]+" "+b[3]);
                 }
             }
+
+            int check = 0;
+                for (int x=0; x<4; x++) {
+                    for (int y=0; y<4; y++) {
+                        if(a[x] == b[y]) check++;
+                    }
+                }
+                if (check == 4) {
+                    int result = a[0] + a[1]*10 + a[2]*100 + a[3]*1000;
+                    System.out.println(result);
+                }
         }
     }
 
